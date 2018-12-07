@@ -33,7 +33,7 @@
         <form action="">
           <div class="form_box">
             <div class="mui-input-row">
-              <input name="username"  type="text" placeholder="用户名/手机号" />
+              <input name="username" type="text" placeholder="用户名/手机号" />
             </div>
             <div class="mui-input-row">
               <input
@@ -44,7 +44,11 @@
               />
               <span class="mui-icon mui-icon-eye"></span>
             </div>
-            <input type="submit" class="mui-btn mui-btn-primary btn_login" value="登录" />
+            <input
+              type="submit"
+              class="mui-btn mui-btn-primary btn_login"
+              value="登录"
+            />
             <div class="mui-input-row cz_text">
               <a href="register.html">免费注册</a>
             </div>
@@ -68,20 +72,19 @@
     <script src="../res/mui/js/mui.min.js"></script>
     <script>
       $("form").on("submit", function() {
-          var data = $(this).serialize();
-         $.ajax({
-             url : '/api/user/login',
-            url : 'http://localhost:3000/user/login',
-             type : 'post',
-             data : data,
-             success:function(info){
-                 console.log(info.success);
-                if(info.success){
-                    location.href = '/';
-                }
-             }
-         })
-          return false;
+        var data = $(this).serialize();
+        $.ajax({
+          url: "/api/user/login",
+          type: "post",
+          data: data,
+          success: function(info) {
+            console.log(info.success);
+            if (info.success) {
+              location.href = "/";
+            }
+          }
+        });
+        return false;
       });
     </script>
   </body>
