@@ -1,60 +1,133 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0"
+    />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
     <title>收货地址管理</title>
-    <link type="image/x-icon" rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../res/mui/css/mui.min.css"/>
-    <link rel="stylesheet" href="../res/fontAwesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../css/common.css"/>
-    <link rel="stylesheet" href="../css/user.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-</head>
-<body>
-<div class="cz_layout bgg">
-    <header class="cz_topBar">
-        <a href="javascript:history.back();" class="icon_back fa fa-arrow-left"></a>
-        <span class="title">收货地址管理</span>
-    </header>
-    <div class="cz_container">
-        <div class="form_box">
-            <div class="mui-input-row">
-                <input name="delivery" type="text" placeholder="收货人">
-            </div>
-            <div class="mui-input-row">
-                <input name="postCode" type="text" placeholder="邮编">
-            </div>
-            <div class="mui-input-row">
-                <textarea name="address" id="textarea" rows="5" placeholder="多行文本框"></textarea>
-            </div>
-            <a href="index.html" class="mui-btn mui-btn-primary btn_login">确认</a>
-        </div>
-    </div>
-    <footer class="cz_tabs">
-        <a class="tab_home fa fa-home" href="../index.html"><span>首页</span></a>
-        <a class="tab_cate fa fa-bars" href="../cate.html"><span>分类</span></a>
-        <a class="tab_cart fa fa-shopping-cart" href="../cart.html"><span>购物车</span></a>
-        <a class="tab_user fa fa-user" href="../user/index.html"><span>会员中心</span></a>
-    </footer>
-</div>
-<script type="text/template" id="tpl">
-    
-</script>
-<script src="/js/jquery-1.12.4.js"></script>
-<script src="../res/mui/js/mui.min.js"></script>
-<script src="/js/template-web.js"></script>
-<script>
-    $.ajax({
-        url : '/api/address/queryAddress',
-        type : 'get',
-        success : function (info) {
-            console.log(info);
+    <link
+      type="image/x-icon"
+      rel="shortcut icon"
+      href="../images/favicon.ico"
+    />
+    <link rel="stylesheet" href="../res/mui/css/mui.min.css" />
+    <link rel="stylesheet" href="../res/fontAwesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <style>
+        .info>div{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
         }
-    })
-</script>
-</body>
+        select{
+            float: left;
+            width: 30%;
+        }
+        .noshow{
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="cz_layout bgg">
+      <header class="cz_topBar">
+        <a
+          href="javascript:history.back();"
+          class="icon_back fa fa-arrow-left"
+        ></a>
+        <span class="title">收货地址管理</span>
+      </header>
+      <div class="cz_container">
+        <form action="">
+          <div class="form_box">
+            <div class="mui-input-row">
+              <input name="recipients" type="text" placeholder="收货人" />
+            </div>
+            <div class="mui-input-row">
+              <input name="postcode" type="text" placeholder="邮编" />
+            </div>
+            <div class="mui-input-row">
+              <div class="info">
+                <div>
+                    <input type="text" class="noshow" name="address">
+                  <select  id="s_province" name=""></select>
+
+                  <select id="s_city" name=""></select>
+
+                  <select id="s_county" name=""></select>
+
+                  <script
+                    class="resources library"
+                    src="/js/area.js"
+                    type="text/javascript"
+                  ></script>
+
+                  <script type="text/javascript">
+                    _init_area();
+                  </script>
+                </div>
+
+                <div id="show"></div>
+              </div>
+            </div>
+            <div class="mui-input-row">
+              <textarea
+                name="addressDetail"
+                id="textarea"
+                rows="5"
+                placeholder="多行文本框"
+              ></textarea>
+            </div>
+            <input
+              type="submit"
+              class="mui-btn mui-btn-primary btn_login"
+              value="确认"
+            />
+          </div>
+        </form>
+      </div>
+      <footer class="cz_tabs">
+        <a class="tab_home fa fa-home" href="../index.html"
+          ><span>首页</span></a
+        >
+        <a class="tab_cate fa fa-bars" href="../cate.html"><span>分类</span></a>
+        <a class="tab_cart fa fa-shopping-cart" href="../cart.html"
+          ><span>购物车</span></a
+        >
+        <a class="tab_user fa fa-user" href="../user/index.html"
+          ><span>会员中心</span></a
+        >
+      </footer>
+    </div>
+    <script src="../res/mui/js/mui.min.js"></script>
+    <script src="/js/jquery-1.12.4.js"></script>
+    <script>
+        $('#s_county').on('change',function(){
+            var str = '';
+            str+=$('#s_province').val();
+            str+=$('#s_city').val();
+            str+=$(this).val();
+            $('.noshow').val(str);
+           console.log($('.noshow').val());
+        })
+      $("form").on("submit", function() {
+         var data = $(this).serialize();
+         console.log(data);
+        $.ajax({
+          url: "/api/address/addAddress",
+          type: "post",
+          success: function(info) {
+            console.log(info);
+          }
+        });
+        return false;
+      });
+    </script>
+  </body>
 </html>
