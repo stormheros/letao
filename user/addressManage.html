@@ -114,16 +114,18 @@
             str+=$('#s_city').val();
             str+=$(this).val();
             $('.noshow').val(str);
-           console.log($('.noshow').val());
         })
       $("form").on("submit", function() {
          var data = $(this).serialize();
-         console.log(data);
         $.ajax({
           url: "/api/address/addAddress",
+          data: data,
           type: "post",
           success: function(info) {
             console.log(info);
+            if(info.success){
+              location.href='/user/address.html'
+            }
           }
         });
         return false;

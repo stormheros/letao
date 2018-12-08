@@ -57,7 +57,7 @@
       {{each info value}}
       <li class="mui-table-view-cell">
               <div class="mui-slider-right mui-disabled">
-                  <a class="mui-btn mui-btn-red">删除</a>
+                  <a href="javascript:;" class="mui-btn mui-btn-red" listnum="{{value.id}}">删除</a>
               </div>
               <a href="addressManage.html" class="mui-navigate-right mui-slider-handle">
                   <div class="delivery">邮编：<span>{{value.postCode}}</span>&nbsp;收货人：<span>{{value.recipients}}</span></div>
@@ -79,6 +79,23 @@
           $('.mui-table-view').html(str);
         }
       });
+      $('ul').on('click','.mui-btn-red',function(){
+        console.log($(this));
+        var _this=$(this);
+        $.ajax({
+          url :'/api/address/deleteAddress',
+          type : 'post',
+          data : {"id":_this.attr('listnum')},
+          success:function (info){
+            console.log(info);
+            if(info.success){
+              _this.parents('li').fadeOut(function(){
+                $(this).remove();
+              });
+            }
+          }
+        })
+      })
     </script>
   </body>
 </html>
