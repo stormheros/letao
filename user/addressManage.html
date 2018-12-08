@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../res/fontAwesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/common.css"/>
     <link rel="stylesheet" href="../css/user.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
 <div class="cz_layout bgg">
@@ -40,6 +41,20 @@
         <a class="tab_user fa fa-user" href="../user/index.html"><span>会员中心</span></a>
     </footer>
 </div>
+<script type="text/template" id="tpl">
+    
+</script>
+<script src="/js/jquery-1.12.4.js"></script>
 <script src="../res/mui/js/mui.min.js"></script>
+<script src="/js/template-web.js"></script>
+<script>
+    $.ajax({
+        url : '/api/address/queryAddress',
+        type : 'get',
+        success : function (info) {
+            console.log(info);
+        }
+    })
+</script>
 </body>
 </html>
